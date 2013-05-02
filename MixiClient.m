@@ -27,10 +27,14 @@
     _complete(data);
 }
 - (void)mixi:(Mixi *)mixi didFailWithError:(NSError *)error {
-    _error(mixi,error);
+    if (_error) {
+        _error(mixi,error);
+    }
 }
 - (void)mixi:(Mixi *)mixi didFailWithConnection:(NSURLConnection *)connection error:(NSError *)error {
+    if (_error) {
     _error(mixi,error);
+    }
 }
 
 @end
