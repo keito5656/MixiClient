@@ -25,7 +25,7 @@
 }
 
 + (id<MixiEntityProtocol>)EntityWithData:(id)data {
-    return [MixiEntity makeContentFromDict:data[@"entry"]];
+    return [self makeContentFromDict:data[@"entry"]];
 }
 
 

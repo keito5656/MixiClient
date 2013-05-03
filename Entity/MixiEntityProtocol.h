@@ -10,5 +10,5 @@
 @class MixiEntity;
 
 @protocol MixiEntityProtocol <NSObject>
-+ (MixiEntity*)makeContentFromDict:(NSDictionary*)dict;
++ (id<MixiEntityProtocol>)makeContentFromDict:(NSDictionary*)dict;
 @end

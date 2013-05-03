@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "MixiEntity.h"
+#import "MixiPageImage.h"
 
 typedef enum{
     ALL = 0,
@@ -18,9 +19,7 @@ typedef enum{
 @interface MixiPage : MixiEntity
 @property(nonatomic,strong) NSString *pageId;
 @property(nonatomic,strong) NSString *pageName;
-@property(nonatomic,strong) NSURL *largethumbnailUrl;
-@property(nonatomic,strong) NSURL *mediumthumbnailUrl;
-@property(nonatomic,strong) NSURL *smallthumbnailUrl;
+@property(nonatomic,strong) MixiPageImage *thumbnail;
 @property(nonatomic,strong) NSString *details;
 @property(nonatomic,strong) NSString *description;
 @property(nonatomic,strong) NSString *zipCode;

@@ -17,9 +17,7 @@
     page.pageName = dict[@"displayName"];
 
     NSDictionary *thumbnailUrls = dict[@"thumbnailUrls"];
-    page.largethumbnailUrl = [NSURL URLWithString:thumbnailUrls[@"large"]];
-    page.mediumthumbnailUrl = [NSURL URLWithString:thumbnailUrls[@"medium"]];
-    page.smallthumbnailUrl = [NSURL URLWithString:thumbnailUrls[@"medium"]];
+    page.thumbnail = [MixiPageImage makeContentFromDict:thumbnailUrls];
     
     page.details = dict[@"details"];
     page.description = dict[@"description"];
@@ -27,9 +25,9 @@
     NSDictionary *options = dict[@"options"];
     page.zipCode = options[@"zipCode"];
     page.address = options[@"address"];
-    page.pcHpUrl = [NSURL URLWithString:thumbnailUrls[@"pcUrl"]];
-    page.mobileHpUrl = [NSURL URLWithString:thumbnailUrls[@"mobileUrl"]];
-    page.smallthumbnailUrl = [NSURL URLWithString:thumbnailUrls[@"smartphoneUrl"]];
+    page.pcHpUrl = [NSURL URLWithString:options[@"pcUrl"]];
+    page.mobileHpUrl = [NSURL URLWithString:options[@"mobileUrl"]];
+    page.smartphoneHpUrl = [NSURL URLWithString:options[@"smartphoneUrl"]];
     page.birthday = options[@"birthday"];
     
     page.followerCount = [dict[@"followerCount"] intValue];
