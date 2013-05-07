@@ -5,8 +5,8 @@
 @property (nonatomic,strong) NSString * created;
 @property (nonatomic,strong) NSString * description;
 @property (nonatomic,strong) NSString * albumId; 
-@property (nonatomic) int mediaItemCount; 
-@property (nonatomic) int numComments;
+@property (nonatomic) NSInteger mediaItemCount;
+@property (nonatomic) NSInteger numComments;
 @property (nonatomic,strong) NSString * ownerDisplayName;
 @property (nonatomic,strong) NSString * ownerId;
 @property (nonatomic,strong) NSString * ownerProfileUrl;

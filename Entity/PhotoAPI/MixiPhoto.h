@@ -2,9 +2,6 @@
 #import "MixiEntity.h"
 
 @interface MixiPhoto : MixiEntity
-
-@property (nonatomic,unsafe_unretained) id delegate;
-
 @property (nonatomic,strong) NSString * albumId;
 @property (nonatomic,strong) NSString * created;
 @property (nonatomic,strong) NSString * photoId;
