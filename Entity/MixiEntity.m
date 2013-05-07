@@ -10,6 +10,20 @@
 
 @implementation MixiEntity
 
+#pragma mark - public
++ (id<MixiEntityProtocol>)entityWithData:(id)data {
+    return [self makeContentFromDict:data[@"entry"]];
+}
+
+#pragma mark - MixiEntityProtocol
+
++ (NSArray *)entitiesArrayWithData:(NSDictionary*)data{
+    NSMutableArray *array = [data objectForKey:@"entry"];
+    return [self makeContentArrayFromEntryArray:array];
+}
+
+#pragma mark - private
+
 + (MixiEntity*)makeContentFromDict:(NSDictionary*)dict{
     return [[MixiEntity alloc] init];
 }
@@ -24,12 +38,4 @@
     return contentsArray;
 }
 
-+ (id<MixiEntityProtocol>)EntityWithData:(id)data {
-    return [self makeContentFromDict:data[@"entry"]];
-}
-
-
-+ (NSArray *)EntitiesArrayWithData:(NSDictionary*)data{
-    NSMutableArray *array = [data objectForKey:@"entry"];
-    return [self makeContentArrayFromEntryArray:array];
-}@end
+@end

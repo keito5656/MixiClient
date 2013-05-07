@@ -11,14 +11,21 @@
 @interface MixiClient() <MixiDelegate>
 @property (nonatomic,strong)completeHandler complete;
 @property (nonatomic,strong)errorHandler error;
+@property (nonatomic,strong)cancelHandler cancel;
+@property (nonatomic,strong)NSURLConnection *connection;
 @end
 
 @implementation MixiClient
 - (void)sendRequest:(MixiRequest*)request complate:(completeHandler)aComplete error:(errorHandler)aError {
     Mixi *mixi = [Mixi sharedMixi];
-    [mixi sendRequest:request delegate:self];
+    _connection = [mixi sendRequest:request delegate:self];
     _complete = aComplete;
     _error = aError;
+}
+
+-(void)cancel:(cancelHandler)aCancel {
+    _cancel = aCancel;
+    [_connection cancel];
 }
 
 
@@ -34,6 +41,11 @@
 - (void)mixi:(Mixi *)mixi didFailWithConnection:(NSURLConnection *)connection error:(NSError *)error {
     if (_error) {
     _error(mixi,error);
+    }
+}
+-(void)mixi:(Mixi *)mixi didCancelWithConnection:(NSURLConnection *)connection {
+    if (_cancel) {
+        _cancel(mixi, connection);
     }
 }
 

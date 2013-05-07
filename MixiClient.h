@@ -8,9 +8,11 @@
 #import "MixiSDK.h"
 #import <Foundation/Foundation.h>
 typedef void (^completeHandler)(id data);
-typedef void (^errorHandler)(Mixi* mixi, NSError* error);
+typedef void (^errorHandler)(Mixi *mixi, NSError *error);
+typedef void (^cancelHandler)(Mixi *mixi, NSURLConnection *connection);
 
 
 @interface MixiClient : NSObject
 - (void)sendRequest:(MixiRequest*)request complate:(completeHandler)aComplete error:(errorHandler)aError;
+- (void)cancel:(cancelHandler)aCancel ;
 @end

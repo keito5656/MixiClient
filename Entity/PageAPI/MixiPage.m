@@ -25,9 +25,9 @@
     NSDictionary *options = dict[@"options"];
     page.zipCode = options[@"zipCode"];
     page.address = options[@"address"];
-    page.pcHpUrl = [NSURL URLWithString:options[@"pcUrl"]];
-    page.mobileHpUrl = [NSURL URLWithString:options[@"mobileUrl"]];
-    page.smartphoneHpUrl = [NSURL URLWithString:options[@"smartphoneUrl"]];
+    
+    page.hpUrl = [MixiPageUrl makeContentFromDict:options];
+
     page.birthday = options[@"birthday"];
     
     page.followerCount = [dict[@"followerCount"] intValue];

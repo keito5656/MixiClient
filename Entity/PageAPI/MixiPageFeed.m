@@ -17,9 +17,7 @@
     pageFeed.title = dict[@"title"];
     
     NSDictionary *urls = dict[@"urls"];
-    pageFeed.pcUrl = [NSURL URLWithString:urls[@"pcUrl"]];
-    pageFeed.mobileUrl = [NSURL URLWithString:urls[@"mobileUrl"]];
-    pageFeed.smartphoneUrl = [NSURL URLWithString:urls[@"smartphoneUrl"]];
+    pageFeed.url = [MixiPageUrl makeContentFromDict:urls];
     
     NSArray *images = dict[@"images"];
     NSMutableArray *aImages = [[NSMutableArray alloc] init];

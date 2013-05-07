@@ -7,10 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MixiEntityProtocol.h"
 
-@interface MixiPageImage : NSObject
+@interface MixiPageImage : NSObject <MixiEntityProtocol>
 @property(nonatomic,strong) NSURL *large;
 @property(nonatomic,strong) NSURL *small;
 @property(nonatomic,strong) NSURL *medium;
-+ (MixiPageImage *)makeContentFromDict:(NSDictionary*)dict;
 @end

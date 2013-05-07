@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "MixiEntity.h"
 #import "MixiPageImage.h"
+#import "MixiPageUrl.h"
 
 typedef enum{
     ALL = 0,
@@ -24,13 +25,10 @@ typedef enum{
 @property(nonatomic,strong) NSString *description;
 @property(nonatomic,strong) NSString *zipCode;
 @property(nonatomic,strong) NSString *address;
-@property(nonatomic,strong) NSURL *pcHpUrl;
-@property(nonatomic,strong) NSURL *mobileHpUrl;
-@property(nonatomic,strong) NSURL *smartphoneHpUrl;
+@property(nonatomic,strong) MixiPageUrl *hpUrl;
 @property(nonatomic,strong) NSString *birthday;
 @property(nonatomic) NSInteger followerCount;
 @property(nonatomic) BOOL official;
 @property(nonatomic) AgeRatingType ageRating;
 
-+ (MixiPage *)makeContentFromDict:(NSDictionary*)dict;
 @end
