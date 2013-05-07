@@ -16,3 +16,10 @@ mixiSDKをデリゲートから開放します．
     [client cancel:^(Mixi *mixi, NSURLConnection *connection) {
        hogehoge..
     }];
+
+
+
+entity
+
+    NSArray *array= [MixiEntity entitiesArrayWithData:APIResponseData]
+    MixiEntity entity= [MixiEntity entityWithData:APIResponseData];
