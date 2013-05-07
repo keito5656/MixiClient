@@ -21,5 +21,5 @@ mixiSDKをデリゲートから開放します．
 
 entity
 
-    NSArray *array = [MixiEntity entitiesArrayWithData:APIResponseData];
+    MixiCollection *MixiCollection = [MixiEntity entitiesArrayWithData:APIResponseData];
     MixiEntity entity = [MixiEntity entityWithData:APIResponseData];
