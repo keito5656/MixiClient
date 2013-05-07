@@ -16,11 +16,12 @@
 @end
 
 @implementation MixiClient
-- (void)sendRequest:(MixiRequest*)request complate:(completeHandler)aComplete error:(errorHandler)aError {
+- (MixiClient*)sendRequest:(MixiRequest*)request complate:(completeHandler)aComplete error:(errorHandler)aError {
     Mixi *mixi = [Mixi sharedMixi];
     _connection = [mixi sendRequest:request delegate:self];
     _complete = aComplete;
     _error = aError;
+    return self;
 }
 
 -(void)cancel:(cancelHandler)aCancel {
