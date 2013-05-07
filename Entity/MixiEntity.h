@@ -8,7 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import "MixiEntityProtocol.h"
+#import "MixiCollection.h"
+
 @interface MixiEntity : NSObject <MixiEntityProtocol>
-+ (NSArray *)entitiesArrayWithData:(NSDictionary*)data;
++ (MixiCollection *)entitiesArrayWithData:(NSDictionary*)data;
 + (id<MixiEntityProtocol>)entityWithData:(id)data;
 @end

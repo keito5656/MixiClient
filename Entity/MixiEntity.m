@@ -7,6 +7,7 @@
 //
 
 #import "MixiEntity.h"
+#import "MixiCollection.h"
 
 @implementation MixiEntity
 
@@ -17,9 +18,12 @@
 
 #pragma mark - MixiEntityProtocol
 
-+ (NSArray *)entitiesArrayWithData:(NSDictionary*)data{
++ (MixiCollection *)entitiesArrayWithData:(NSDictionary*)data{
     NSMutableArray *array = [data objectForKey:@"entry"];
-    return [self makeContentArrayFromEntryArray:array];
+    MixiCollection *collection = [MixiCollection collectionWithData:data];
+    collection.contents = [self makeContentArrayFromEntryArray:array];
+    
+    return collection;
 }
 
 #pragma mark - private

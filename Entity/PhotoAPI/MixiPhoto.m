@@ -2,14 +2,6 @@
 
 @implementation MixiPhoto
 
-- (void) dealloc {
-    self.delegate = nil;
-    
-    self.numComments = 0;
-    self.numFavorites = 0;
-    
-}
-
 +(MixiPhoto *)makeContentFromDict:(NSDictionary*)dict{
     MixiPhoto * photo = [[MixiPhoto alloc] init];
     
