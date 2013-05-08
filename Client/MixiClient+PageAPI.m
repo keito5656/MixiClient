@@ -19,12 +19,13 @@
     
     MixiRequest *request = [MixiRequest requestWithEndpoint:[NSString stringWithFormat:@"/pages/%@",pageId]];
     
-    MixiClient *client = [[MixiClient alloc]initWithRequest:request complate:^(id data) {
-        MixiPage *page = [MixiPage entityWithData:data];
-        aComplete(page);
-    } error:^(Mixi *mixi, NSError *error) {
-        aError(mixi,error);
-    }];
+    MixiClient *client = [[MixiClient alloc] initWithRequest:request
+                                                   complate:^(id data) {
+                                                       MixiPage *page = [MixiPage entityWithData:data];
+                                                       aComplete(page);
+                                                   } error:^(Mixi *mixi, NSError *error) {
+                                                       aError(mixi,error);
+                                                   }];
     
     return client;
 }
@@ -37,12 +38,13 @@
                                                              ,count
                                                              ]];
     
-    MixiClient *client = [[MixiClient alloc]initWithRequest:request complate:^(id data) {
-        MixiCollection *collection = [MixiPage entitiesArrayWithData:data];
-        aComplete(collection);
-    } error:^(Mixi *mixi, NSError *error) {
-        aError(mixi,error);
-    }];
+    MixiClient *client = [[MixiClient alloc] initWithRequest:request
+                                                   complate:^(id data) {
+                                                       MixiCollection *collection = [MixiPage entitiesArrayWithData:data];
+                                                       aComplete(collection);
+                                                   } error:^(Mixi *mixi, NSError *error) {
+                                                       aError(mixi,error);
+                                                   }];
     
     return client;
 }
@@ -66,12 +68,13 @@
                                                              escapedString
                                                              ]];
 
-    MixiClient *client = [[MixiClient alloc]initWithRequest:request complate:^(id data) {
-        MixiPageFeed *pageFeed = [MixiPageFeed entityWithData:data];
-        aComplete(pageFeed);
-    } error:^(Mixi *mixi, NSError *error) {
-        aError(mixi,error);
-    }];
+    MixiClient *client = [[MixiClient alloc] initWithRequest:request
+                                                   complate:^(id data) {
+                                                       MixiPageFeed *pageFeed = [MixiPageFeed entityWithData:data];
+                                                       aComplete(pageFeed);
+                                                   } error:^(Mixi *mixi, NSError *error) {
+                                                       aError(mixi,error);
+                                                   }];
     
     return client;
 }
@@ -83,12 +86,13 @@
                                                              ,count
                                                              ]];
 
-    MixiClient *client = [[MixiClient alloc]initWithRequest:request complate:^(id data) {
-        MixiCollection *collection = [MixiPageFeed entitiesArrayWithData:data];
-        aComplete(collection);
-    } error:^(Mixi *mixi, NSError *error) {
-        aError(mixi,error);
-    }];
+    MixiClient *client = [[MixiClient alloc] initWithRequest:request
+                                                   complate:^(id data) {
+                                                       MixiCollection *collection = [MixiPageFeed entitiesArrayWithData:data];
+                                                       aComplete(collection);
+                                                   } error:^(Mixi *mixi, NSError *error) {
+                                                       aError(mixi,error);
+                                                   }];
 
     return client;
 }

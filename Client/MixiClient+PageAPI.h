@@ -11,7 +11,6 @@
 
 typedef void (^pageCompleteHandler)(MixiPage *entity);
 typedef void (^pageFeedCompleteHandler)(MixiPageFeed *entity);
-
 typedef void (^collectionCompleteHandler)(MixiCollection *collection);
 
 @interface MixiClient (PageAPI)
