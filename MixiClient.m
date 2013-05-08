@@ -16,15 +16,27 @@
 @end
 
 @implementation MixiClient
+
+- (MixiClient *)initWithRequest:(MixiRequest *)request complate:(completeHandler)aComplete error:(errorHandler)aError {
+    self = [super init];
+    if(self) {
+        [self sendRequest:request complate:aComplete error:aError];
+    }
+    
+    return self;
+}
+
 - (MixiClient*)sendRequest:(MixiRequest*)request complate:(completeHandler)aComplete error:(errorHandler)aError {
     Mixi *mixi = [Mixi sharedMixi];
     _connection = [mixi sendRequest:request delegate:self];
     _complete = aComplete;
     _error = aError;
+    
     return self;
 }
 
 -(void)cancel:(cancelHandler)aCancel {
+    
     _cancel = aCancel;
     [_connection cancel];
 }
@@ -32,19 +44,25 @@
 
 #pragma mixi delegate
 - (void)mixi:(Mixi *)mixi didSuccessWithJson:(id)data {
-    _complete(data);
+
+    if (_complete) {
+        _complete(data);
+    }
 }
 - (void)mixi:(Mixi *)mixi didFailWithError:(NSError *)error {
+
     if (_error) {
         _error(mixi,error);
     }
 }
 - (void)mixi:(Mixi *)mixi didFailWithConnection:(NSURLConnection *)connection error:(NSError *)error {
+
     if (_error) {
     _error(mixi,error);
     }
 }
 -(void)mixi:(Mixi *)mixi didCancelWithConnection:(NSURLConnection *)connection {
+   
     if (_cancel) {
         _cancel(mixi, connection);
     }

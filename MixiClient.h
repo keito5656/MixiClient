@@ -13,6 +13,7 @@ typedef void (^cancelHandler)(Mixi *mixi, NSURLConnection *connection);
 
 
 @interface MixiClient : NSObject
+- (MixiClient*)initWithRequest:(MixiRequest*)request complate:(completeHandler)aComplete error:(errorHandler)aError;
 - (MixiClient*)sendRequest:(MixiRequest*)request complate:(completeHandler)aComplete error:(errorHandler)aError;
 - (void)cancel:(cancelHandler)aCancel ;
 @end

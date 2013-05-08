@@ -17,6 +17,10 @@
     collection.totalResults = data[@"totalResults"];
     
     return collection;
-    
 }
+
+- (NSInteger)itemsPerPage{
+    return _itemsPerPage ? _itemsPerPage : [_contents count];
+}
+
 @end
