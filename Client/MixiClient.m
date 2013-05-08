@@ -68,4 +68,8 @@
     }
 }
 
+-(void)mixi:(Mixi *)mixi didFinishLoading:(NSString *)data {
+    NSLog(@"%@",data);
+}
+
 @end
