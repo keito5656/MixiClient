@@ -29,9 +29,13 @@
     return client;
 }
 
-+ (MixiClient *)findFollowPageWithUserId:(NSString *)userId Complete:(collectionCompleteHandler)aComplete error:(errorHandler)aError {
-
-    MixiRequest *request = [MixiRequest requestWithEndpoint:[NSString stringWithFormat:@"/followingPages/%@/@self",userId]];
++ (MixiClient*)findFollowPageWithUserId:(NSString*)userId startIndex:(NSInteger)startIndex limitCount:(NSInteger)count complete:(collectionCompleteHandler)aComplete error:(errorHandler)aError {
+    
+    MixiRequest *request = [MixiRequest requestWithEndpoint:[NSString stringWithFormat:@"/followingPages/%@/@self?startIndex=%d&count=%d"
+                                                             ,userId
+                                                             ,startIndex
+                                                             ,count
+                                                             ]];
     
     MixiClient *client = [[MixiClient alloc]initWithRequest:request complate:^(id data) {
         MixiCollection *collection = [MixiPage entitiesArrayWithData:data];
@@ -42,9 +46,8 @@
     
     return client;
 }
-
-+ (MixiClient *)findMyFollowPageWithComplete:(collectionCompleteHandler)aComplete error:(errorHandler)aError {
-    return [MixiClient findFollowPageWithUserId:@"@me" Complete:aComplete error:aError];
++(MixiClient *)findMyFollowPageWithStartIndex:(NSInteger)startIndex limitCount:(NSInteger)count complete:(collectionCompleteHandler)aComplete error:(errorHandler)aError {
+    return [MixiClient findFollowPageWithUserId:@"@me" startIndex:startIndex limitCount:count complete:aComplete error:aError];
 }
 
 #pragma mark - MixiPageFeed
@@ -58,7 +61,10 @@
                                                                                  (CFStringRef)@"!*'();:@&=+$,/?%#[]",
                                                                                  kCFStringEncodingUTF8));
     
-    MixiRequest *request = [MixiRequest requestWithEndpoint:[NSString stringWithFormat:@"/pages/%@/feeds?contentUri=%@",pageId,escapedString]];
+    MixiRequest *request = [MixiRequest requestWithEndpoint:[NSString stringWithFormat:@"/pages/%@/feeds?contentUri=%@"
+                                                             ,pageId,
+                                                             escapedString
+                                                             ]];
 
     MixiClient *client = [[MixiClient alloc]initWithRequest:request complate:^(id data) {
         MixiPageFeed *pageFeed = [MixiPageFeed entityWithData:data];
@@ -69,9 +75,13 @@
     
     return client;
 }
-
-+ (MixiClient *)findPageFeedWithPageId:(NSString *)pageId complete:(collectionCompleteHandler)aComplete error:(errorHandler)aError {
-    MixiRequest *request = [MixiRequest requestWithEndpoint:[NSString stringWithFormat:@"/pages/%@/feeds",pageId]];
++(MixiClient *)findPageFeedWithPageId:(NSString *)pageId startIndex:(NSInteger)startIndex limitCount:(NSInteger)count complete:(collectionCompleteHandler)aComplete error:(errorHandler)aError {
+    
+    MixiRequest *request = [MixiRequest requestWithEndpoint:[NSString stringWithFormat:@"/pages/%@/feeds?startIndex=%d&count=%d"
+                                                             ,pageId
+                                                             ,startIndex
+                                                             ,count
+                                                             ]];
 
     MixiClient *client = [[MixiClient alloc]initWithRequest:request complate:^(id data) {
         MixiCollection *collection = [MixiPageFeed entitiesArrayWithData:data];

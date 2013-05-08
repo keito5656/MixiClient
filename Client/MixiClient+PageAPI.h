@@ -18,11 +18,11 @@ typedef void (^collectionCompleteHandler)(MixiCollection *collection);
 
 // MixiPage
 + (MixiClient*)lookupWithPageId:(NSString*)pageId complete:(pageCompleteHandler)aComplete error:(errorHandler)aError;
-+ (MixiClient*)findMyFollowPageWithComplete:(collectionCompleteHandler)aComplete error:(errorHandler)aError;
-+ (MixiClient*)findFollowPageWithUserId:(NSString*)userId Complete:(collectionCompleteHandler)aComplete error:(errorHandler)aError;
++ (MixiClient*)findMyFollowPageWithStartIndex:(NSInteger)startIndex limitCount:(NSInteger)count complete:(collectionCompleteHandler)aComplete error:(errorHandler)aError;
++ (MixiClient*)findFollowPageWithUserId:(NSString*)userId startIndex:(NSInteger)startIndex limitCount:(NSInteger)count complete:(collectionCompleteHandler)aComplete error:(errorHandler)aError;
 
 // MixiPagFeed
-+ (MixiClient*)findPageFeedWithPageId:(NSString*)pageId complete:(collectionCompleteHandler)aComplete error:(errorHandler)aError;
++ (MixiClient*)findPageFeedWithPageId:(NSString*)pageId startIndex:(NSInteger)startIndex limitCount:(NSInteger)count complete:(collectionCompleteHandler)aComplete error:(errorHandler)aError;
 + (MixiClient*)lookupPageFeedWithPageId:(NSString*)pageId contentUri:(NSURL*)contentUri complete:(pageFeedCompleteHandler)aComplete error:(errorHandler)aError;
 
 @end
