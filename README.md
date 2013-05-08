@@ -26,7 +26,7 @@ entity
 APIアクセス
 
 
-    [MixiClient lookupWithPageID:@"298660" complete:^(MixiPage *entity) {
+    [MixiClient lookupWithPageId:@"298660" complete:^(MixiPage *entity) {
         NSLog(@"%@",entity);
         
     } error:^(Mixi *mixi, NSError *error) {
