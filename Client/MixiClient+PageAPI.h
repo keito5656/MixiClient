@@ -13,7 +13,7 @@ typedef void (^pageCompleteHandler)(MixiPage *entity);
 typedef void (^collectionCompleteHandler)(MixiCollection *collection);
 
 @interface MixiClient (PageAPI)
-+ (MixiClient*)lookupWithPageID:(NSString*)pageId complete:(pageCompleteHandler)aComplete error:(errorHandler)aError;
++ (MixiClient*)lookupWithPageId:(NSString*)pageId complete:(pageCompleteHandler)aComplete error:(errorHandler)aError;
 + (MixiClient*)findMyFollowPageWithComplete:(collectionCompleteHandler)aComplete error:(errorHandler)aError;
 + (MixiClient*)findFollowPageWithUserId:(NSString*)userId Complete:(collectionCompleteHandler)aComplete error:(errorHandler)aError;
 @end

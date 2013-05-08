@@ -11,7 +11,7 @@
 #import "MixiPage.h"
 
 @implementation MixiClient (PageAPI)
-+(MixiClient*)lookupWithPageID:(NSString *)pageId complete:(pageCompleteHandler)aComplete error:(errorHandler)aError {
++(MixiClient*)lookupWithPageId:(NSString *)pageId complete:(pageCompleteHandler)aComplete error:(errorHandler)aError {
     
     MixiRequest *request = [MixiRequest requestWithEndpoint:[NSString stringWithFormat:@"/pages/%@",pageId]];
     
