@@ -28,8 +28,7 @@
     pageFeed.images = aImages;
     
     NSDictionary *user = dict[@"user"];
-    pageFeed.senderID = user[@"id"];
-    pageFeed.senderName = user[@"displayName"];
+    pageFeed.sender = [MixiPageUser makeContentFromDict:user];
     
     pageFeed.favoriteCount = [dict[@"favoriteCount"] intValue];
     pageFeed.commentCount = [dict[@"commentCount"] intValue];

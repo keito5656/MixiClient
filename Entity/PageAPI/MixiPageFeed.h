@@ -9,6 +9,7 @@
 #import "MixiEntity.h"
 #import "MixiPageImage.h"
 #import "MixiPageUrl.h"
+#import "MixiPageUser.h"
 
 @interface MixiPageFeed : MixiEntity
 @property(nonatomic,strong) NSURL *contentUri;
@@ -16,9 +17,7 @@
 @property(nonatomic,strong) NSString *title;
 @property(nonatomic,strong) MixiPageUrl *url;
 @property(nonatomic,strong) NSArray *images;
-@property(nonatomic,strong) NSString *senderID;
-@property(nonatomic,strong) NSString *senderName;
-@property(nonatomic,strong) NSURL *senderThumbnailUrl;
+@property(nonatomic,strong) MixiPageUser *sender;
 @property(nonatomic) NSInteger *favoriteCount;
 @property(nonatomic) NSInteger *commentCount;
 @property(nonatomic,strong) NSString *sourceName;
