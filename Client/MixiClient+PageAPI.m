@@ -24,4 +24,23 @@
     
     return client;
 }
+
++ (MixiClient *)findFollowPageWithUserId:(NSString *)userId Complete:(collectionCompleteHandler)aComplete error:(errorHandler)aError {
+
+    MixiRequest *request = [MixiRequest requestWithEndpoint:[NSString stringWithFormat:@"/followingPages/%@/@self",userId]];
+    
+    MixiClient *client = [[MixiClient alloc]initWithRequest:request complate:^(id data) {
+        MixiCollection *collection = [MixiPage entitiesArrayWithData:data];
+        aComplete(collection);
+    } error:^(Mixi *mixi, NSError *error) {
+        aError(mixi,error);
+    }];
+    
+    return client;
+}
+
++ (MixiClient *)findMyFollowPageWithComplete:(collectionCompleteHandler)aComplete error:(errorHandler)aError {
+    return [MixiClient findFollowPageWithUserId:@"@me" Complete:aComplete error:aError];
+}
+
 @end
