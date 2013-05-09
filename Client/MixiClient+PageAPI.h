@@ -23,5 +23,7 @@ typedef void (^collectionCompleteHandler)(MixiCollection *collection);
 // MixiPagFeed
 + (MixiClient*)findPageFeedWithPageId:(NSString*)pageId startIndex:(NSInteger)startIndex limitCount:(NSInteger)count complete:(collectionCompleteHandler)aComplete error:(errorHandler)aError;
 + (MixiClient*)lookupPageFeedWithPageId:(NSString*)pageId contentUri:(NSURL*)contentUri complete:(pageFeedCompleteHandler)aComplete error:(errorHandler)aError;
++ (MixiClient*)findFollowPageFeedWithStartIndex:(NSInteger)startIndex limitCount:(NSInteger)count complete:(collectionCompleteHandler)aComplete error:(errorHandler)aError;
+
 
 @end

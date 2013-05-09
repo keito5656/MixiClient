@@ -97,4 +97,22 @@
     return client;
 }
 
++ (MixiClient *)findFollowPageFeedWithStartIndex:(NSInteger)startIndex limitCount:(NSInteger)count complete:(collectionCompleteHandler)aComplete error:(errorHandler)aError {
+    MixiRequest *request = [MixiRequest requestWithEndpoint:[NSString stringWithFormat:@"/followingPages/@me/@self/feeds?startIndex=%d&count=%d"
+                                                             ,startIndex
+                                                             ,count
+                                                             ]];
+    
+    MixiClient *client = [[MixiClient alloc] initWithRequest:request
+                                                    complate:^(id data) {
+                                                        MixiCollection *collection = [MixiPageFeed entitiesArrayWithData:data];
+                                                        aComplete(collection);
+                                                    } error:^(Mixi *mixi, NSError *error) {
+                                                        aError(mixi,error);
+                                                    }];
+    
+    return client;
+    
+}
+
 @end
