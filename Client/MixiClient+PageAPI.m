@@ -10,6 +10,7 @@
 #import "MixiCollection.h"
 #import "MixiPage.h"
 #import "MixiPageFeed.h"
+#import "MixiPageComment.h"
 
 @implementation MixiClient (PageAPI)
 
@@ -114,5 +115,42 @@
     return client;
     
 }
+
+#pragma mark - MixiPageComment
+
++ (MixiClient *)findPageCommentWithPageId:(NSString *)pageId contentUri:(NSURL*)contentUri startIndex:(NSInteger)startIndex limitCount:(NSInteger)count complete:(collectionCompleteHandler)aComplete error:(errorHandler)aError {
+
+    return [MixiClient lookupPageCommentWithPageId:pageId contentUri:contentUri commentId:nil startIndex:startIndex limitCount:count complete:aComplete error:aError];
+}
+
++ (MixiClient *)lookupPageCommentWithPageId:(NSString *)pageId contentUri:(NSURL *)contentUri commentId:(NSString *)commentId startIndex:(NSInteger)startIndex limitCount:(NSInteger)count complete:(collectionCompleteHandler)aComplete error:(errorHandler)aError {
+    
+    NSString *urlString = contentUri.absoluteString;
+    NSString *escapedString = (NSString*)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(
+                                                                                                   kCFAllocatorDefault,
+                                                                                                   (CFStringRef)urlString,
+                                                                                                   NULL,
+                                                                                                   (CFStringRef)@"!*'();:@&=+$,/?%#[]",
+                                                                                                   kCFStringEncodingUTF8));
+    
+    MixiRequest *request = [MixiRequest requestWithEndpoint:[NSString stringWithFormat:@"/pages/%@/comments/%@?contentUri=%@&startIndex=%d&count=%d"
+                                                             ,pageId
+                                                             ,commentId ? commentId : @""
+                                                             ,escapedString
+                                                             ,startIndex
+                                                             ,count
+                                                             ]];
+    
+    MixiClient *client = [[MixiClient alloc] initWithRequest:request
+                                                    complate:^(id data) {
+                                                        MixiCollection *collection = [MixiPageComment entitiesArrayWithData:data];
+                                                        aComplete(collection);
+                                                    } error:^(Mixi *mixi, NSError *error) {
+                                                        aError(mixi,error);
+                                                    }];
+    
+    return client;
+}
+
 
 @end
