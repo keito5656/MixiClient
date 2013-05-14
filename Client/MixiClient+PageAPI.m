@@ -180,5 +180,29 @@
     return client;
 }
 
++ (MixiClient *)createPageFavoritWithPageId:(NSString *)pageId contentUri:(NSURL *)contentUri complete:(createPageFavoritCompleteHandler)aComplete error:(errorHandler)aError {
+    
+    NSString *urlString = contentUri.absoluteString;
+    NSString *escapedString = (NSString*)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(
+                                                                                                   kCFAllocatorDefault,
+                                                                                                   (CFStringRef)urlString,
+                                                                                                   NULL,
+                                                                                                   (CFStringRef)@"!*'();:@&=+$,/?%#[]",
+                                                                                                   kCFStringEncodingUTF8));
+    
+    MixiRequest *request = [MixiRequest postRequestWithEndpoint:[NSString stringWithFormat:@"/pages/%@/favorites?contentUri=%@"
+                                                                 ,pageId
+                                                                 ,escapedString
+                                                                 ]];
+    
+    MixiClient *client = [[MixiClient alloc] initWithRequest:request
+                                                    complate:^(id data) {
+                                                        aComplete(data[@"id"]);
+                                                    } error:^(Mixi *mixi, NSError *error) {
+                                                        aError(mixi,error);
+                                                    }];
+    return client;
+}
+
 
 @end
