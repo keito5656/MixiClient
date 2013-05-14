@@ -18,8 +18,8 @@
 @property(nonatomic,strong) MixiPageUrl *url;
 @property(nonatomic,strong) NSArray *images;
 @property(nonatomic,strong) MixiPageUser *sender;
-@property(nonatomic) NSInteger *favoriteCount;
-@property(nonatomic) NSInteger *commentCount;
+@property(nonatomic) NSInteger favoriteCount;
+@property(nonatomic) NSInteger commentCount;
 @property(nonatomic,strong) NSString *sourceName;
 @property(nonatomic,strong) NSString *created;
 @property(nonatomic) BOOL isOwnerPosted;

@@ -15,7 +15,7 @@
     
     user.id = dict[@"id"];
     user.name = dict[@"displayName"];
-    user.thumbnailUrl = dict[@"thumbnailUrl"];
+    user.thumbnailUrl = [NSURL URLWithString:dict[@"thumbnailUrl"]];
     
     return user;
 }

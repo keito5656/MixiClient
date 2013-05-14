@@ -11,6 +11,7 @@
 #import "MixiPage.h"
 #import "MixiPageFeed.h"
 #import "MixiPageComment.h"
+#import "MixiPageFavorit.h"
 
 @implementation MixiClient (PageAPI)
 
@@ -149,6 +150,33 @@
                                                         aError(mixi,error);
                                                     }];
     
+    return client;
+}
+
+#pragma mark - MixiPageFavorit
+
++ (MixiClient *)lookupPageFavoritWithPageId:(NSString *)pageId contentUri:(NSURL *)contentUri complete:(pageFavoritCompleteHandler)aComplete error:(errorHandler)aError {
+    
+    NSString *urlString = contentUri.absoluteString;
+    NSString *escapedString = (NSString*)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(
+                                                                                                   kCFAllocatorDefault,
+                                                                                                   (CFStringRef)urlString,
+                                                                                                   NULL,
+                                                                                                   (CFStringRef)@"!*'();:@&=+$,/?%#[]",
+                                                                                                   kCFStringEncodingUTF8));
+    
+    MixiRequest *request = [MixiRequest requestWithEndpoint:[NSString stringWithFormat:@"/pages/%@/favorites?contentUri=%@"
+                                                             ,pageId
+                                                             ,escapedString
+                                                             ]];
+    
+    MixiClient *client = [[MixiClient alloc] initWithRequest:request
+                                                    complate:^(id data) {
+                                                        MixiPageFavorit *favorit = [MixiPageFavorit entityWithData:data];
+                                                        aComplete(favorit);
+                                                    } error:^(Mixi *mixi, NSError *error) {
+                                                        aError(mixi,error);
+                                                    }];
     return client;
 }
 

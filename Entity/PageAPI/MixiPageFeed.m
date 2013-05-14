@@ -22,8 +22,10 @@
     NSArray *images = dict[@"images"];
     NSMutableArray *aImages = [[NSMutableArray alloc] init];
     for (NSDictionary *imageDict in images) {
-        MixiPageImage *image= [MixiPageImage makeContentFromDict:imageDict];
-        [aImages addObject:image];
+        if (![imageDict[@"large"] isEqualToString:@""]) {
+            MixiPageImage *image= [MixiPageImage makeContentFromDict:imageDict];
+            [aImages addObject:image];
+        }
     }
     pageFeed.images = aImages;
     
