@@ -139,6 +139,26 @@
     }];
 }
 
++ (MixiClient *)deletePageCommentWithPageId:(NSString *)pageId contentUri:(NSURL *)contentUri commentId:(NSString *)commentId complete:(createPageCommentCompleteHandler)aComplete error:(errorHandler)aError {
+    NSString *urlString = contentUri.absoluteString;
+    NSString *escapedString = [self urlEncode:urlString];
+    
+    MixiRequest *request = [MixiRequest deleteRequestWithEndpoint:[NSString stringWithFormat:@"/pages/%@/comments/%@?contentUri=%@"
+                                                                   ,pageId
+                                                                   ,commentId
+                                                                   ,escapedString
+                                                                   ]];
+    MixiClient *client = [[MixiClient alloc] init ];
+    client.allowBlank = YES;
+    [client sendRequest:request
+               complate:^(id data) {
+                   aComplete(@"success");
+               } error:^(Mixi *mixi, NSError *error) {
+                   aError(mixi,error);
+               }];
+    return client;
+}
+
 + (MixiClient *)searchPageCommentWithPageId:(NSString *)pageId contentUri:(NSURL *)contentUri commentId:(NSString *)commentId startIndex:(NSInteger)startIndex limitCount:(NSInteger)count complete:(collectionCompleteHandler)aComplete error:(errorHandler)aError {
     
     NSString *urlString = contentUri.absoluteString;
@@ -224,7 +244,6 @@
                                                                    ,favoritId
                                                                    ,escapedString
                                                                    ]];
-    NSLog(@"%@", request.endpoint);
     MixiClient *client = [[MixiClient alloc] init ];
     client.allowBlank = YES;
     [client sendRequest:request
