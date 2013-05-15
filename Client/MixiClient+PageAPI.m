@@ -58,12 +58,7 @@
 
 + (MixiClient *)lookupPageFeedWithPageId:(NSString *)pageId contentUri:(NSURL *)contentUri complete:(pageFeedCompleteHandler)aComplete error:(errorHandler)aError {
     NSString *urlString = contentUri.absoluteString;
-    NSString *escapedString = (NSString*)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(
-                                                                                 kCFAllocatorDefault,
-                                                                                 (CFStringRef)urlString,
-                                                                                 NULL,
-                                                                                 (CFStringRef)@"!*'();:@&=+$,/?%#[]",
-                                                                                 kCFStringEncodingUTF8));
+    NSString *escapedString = [self urlEncode:urlString];
     
     MixiRequest *request = [MixiRequest requestWithEndpoint:[NSString stringWithFormat:@"/pages/%@/feeds?contentUri=%@"
                                                              ,pageId,
@@ -130,15 +125,24 @@
     return [MixiClient searchPageCommentWithPageId:pageId contentUri:contentUri commentId:commentId startIndex:0 limitCount:0 complete:aComplete error:aError];
 }
 
++ (MixiClient *)createPageCommentWithPageId:(NSString *)pageId contentUri:(NSURL *)contentUri comment:(NSString *)commentBody complete:(createPageCommentCompleteHandler)aComplete error:(errorHandler)aError {
+    NSString *urlString = contentUri.absoluteString;
+    NSString *escapedString = [self urlEncode:urlString];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params setObject:commentBody forKey:@"comment"];
+    MixiRequest *request = [MixiRequest postRequestWithEndpoint:[NSString stringWithFormat:@"/pages/%@/comments?contentUri=%@",pageId,escapedString]paramsAndKeys:params, @"request", nil];
+    
+    return [[MixiClient alloc] initWithRequest:request complate:^(id data) {
+        aComplete(data[@"id"]);
+    } error:^(Mixi *mixi, NSError *error) {
+        aError(mixi,error);
+    }];
+}
+
 + (MixiClient *)searchPageCommentWithPageId:(NSString *)pageId contentUri:(NSURL *)contentUri commentId:(NSString *)commentId startIndex:(NSInteger)startIndex limitCount:(NSInteger)count complete:(collectionCompleteHandler)aComplete error:(errorHandler)aError {
     
     NSString *urlString = contentUri.absoluteString;
-    NSString *escapedString = (NSString*)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(
-                                                                                                   kCFAllocatorDefault,
-                                                                                                   (CFStringRef)urlString,
-                                                                                                   NULL,
-                                                                                                   (CFStringRef)@"!*'();:@&=+$,/?%#[]",
-                                                                                                   kCFStringEncodingUTF8));
+    NSString *escapedString = [self urlEncode:urlString];
     MixiRequest *request;
     if (startIndex && count) {
         request = [MixiRequest requestWithEndpoint:[NSString stringWithFormat:@"/pages/%@/comments/%@?contentUri=%@&startIndex=%d&count=%d"
@@ -173,12 +177,8 @@
 + (MixiClient *)lookupPageFavoritWithPageId:(NSString *)pageId contentUri:(NSURL *)contentUri complete:(pageFavoritCompleteHandler)aComplete error:(errorHandler)aError {
     
     NSString *urlString = contentUri.absoluteString;
-    NSString *escapedString = (NSString*)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(
-                                                                                                   kCFAllocatorDefault,
-                                                                                                   (CFStringRef)urlString,
-                                                                                                   NULL,
-                                                                                                   (CFStringRef)@"!*'();:@&=+$,/?%#[]",
-                                                                                                   kCFStringEncodingUTF8));
+    NSString *escapedString;
+    escapedString = [self urlEncode:urlString];
     
     MixiRequest *request = [MixiRequest requestWithEndpoint:[NSString stringWithFormat:@"/pages/%@/favorites?contentUri=%@"
                                                              ,pageId
@@ -198,12 +198,7 @@
 + (MixiClient *)createPageFavoritWithPageId:(NSString *)pageId contentUri:(NSURL *)contentUri complete:(createPageFavoritCompleteHandler)aComplete error:(errorHandler)aError {
     
     NSString *urlString = contentUri.absoluteString;
-    NSString *escapedString = (NSString*)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(
-                                                                                                   kCFAllocatorDefault,
-                                                                                                   (CFStringRef)urlString,
-                                                                                                   NULL,
-                                                                                                   (CFStringRef)@"!*'();:@&=+$,/?%#[]",
-                                                                                                   kCFStringEncodingUTF8));
+    NSString *escapedString = [self urlEncode:urlString];
     
     MixiRequest *request = [MixiRequest postRequestWithEndpoint:[NSString stringWithFormat:@"/pages/%@/favorites?contentUri=%@"
                                                                  ,pageId
@@ -222,12 +217,7 @@
 + (MixiClient*)deletePageFavoritWithPageId:(NSString*)pageId contentUri:(NSURL*)contentUri favoritId:(NSString*)favoritId complete:(createPageFavoritCompleteHandler)aComplete error:(errorHandler)aError {
     
     NSString *urlString = contentUri.absoluteString;
-    NSString *escapedString = (NSString*)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(
-                                                                                                   kCFAllocatorDefault,
-                                                                                                   (CFStringRef)urlString,
-                                                                                                   NULL,
-                                                                                                   (CFStringRef)@"!*'();:@&=+$,/?%#[]",
-                                                                                                   kCFStringEncodingUTF8));
+    NSString *escapedString = [self urlEncode:urlString];
     
     MixiRequest *request = [MixiRequest deleteRequestWithEndpoint:[NSString stringWithFormat:@"/pages/%@/favorites/%@?contentUri=%@"
                                                                    ,pageId
@@ -248,6 +238,18 @@
 
 
 
+
+#pragma mark - private
+
++ (NSString *)urlEncode:(NSString *)urlString {
+    NSString *escapedString = (NSString*)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(
+                                                                                                   kCFAllocatorDefault,
+                                                                                                   (CFStringRef)urlString,
+                                                                                                   NULL,
+                                                                                                   (CFStringRef)@"!*'();:@&=+$,/?%#[]",
+                                                                                                   kCFStringEncodingUTF8));
+    return escapedString;
+}
 
 
 @end

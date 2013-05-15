@@ -13,6 +13,7 @@ typedef void (^pageCompleteHandler)(MixiPage *entity);
 typedef void (^pageFeedCompleteHandler)(MixiPageFeed *entity);
 typedef void (^pageFavoritCompleteHandler)(MixiPageFavorit *entity);
 typedef void (^createPageFavoritCompleteHandler)(NSString* favoriteId);
+typedef void (^createPageCommentCompleteHandler)(NSString* commentId);
 typedef void (^collectionCompleteHandler)(MixiCollection *collection);
 
 @interface MixiClient (PageAPI)
@@ -30,6 +31,8 @@ typedef void (^collectionCompleteHandler)(MixiCollection *collection);
 // MixiPageComment
 + (MixiClient*)findPageCommentWithPageId:(NSString*)pageId contentUri:(NSURL*)contentUri startIndex:(NSInteger)startIndex limitCount:(NSInteger)count complete:(collectionCompleteHandler)aComplete error:(errorHandler)aError;
 + (MixiClient*)lookupPageCommentWithPageId:(NSString*)pageId contentUri:(NSURL*)contentUri commentId:(NSString*)commentId complete:(collectionCompleteHandler)aComplete error:(errorHandler)aError;
++ (MixiClient*)createPageCommentWithPageId:(NSString*)pageId contentUri:(NSURL*)contentUri comment:(NSString*)commentBody complete:(createPageCommentCompleteHandler)aComplete error:(errorHandler)aError;
+
 
 // MixiPageFavorit
 + (MixiClient*)lookupPageFavoritWithPageId:(NSString*)pageId contentUri:(NSURL*)contentUri complete:(pageFavoritCompleteHandler)aComplete error:(errorHandler)aError;
