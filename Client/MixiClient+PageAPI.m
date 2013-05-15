@@ -120,11 +120,17 @@
 #pragma mark - MixiPageComment
 
 + (MixiClient *)findPageCommentWithPageId:(NSString *)pageId contentUri:(NSURL*)contentUri startIndex:(NSInteger)startIndex limitCount:(NSInteger)count complete:(collectionCompleteHandler)aComplete error:(errorHandler)aError {
+    
+    
 
-    return [MixiClient lookupPageCommentWithPageId:pageId contentUri:contentUri commentId:nil startIndex:startIndex limitCount:count complete:aComplete error:aError];
+    return [MixiClient searchPageCommentWithPageId:pageId contentUri:contentUri commentId:nil startIndex:startIndex limitCount:count complete:aComplete error:aError];
 }
 
-+ (MixiClient *)lookupPageCommentWithPageId:(NSString *)pageId contentUri:(NSURL *)contentUri commentId:(NSString *)commentId startIndex:(NSInteger)startIndex limitCount:(NSInteger)count complete:(collectionCompleteHandler)aComplete error:(errorHandler)aError {
++ (MixiClient *)lookupPageCommentWithPageId:(NSString *)pageId contentUri:(NSURL *)contentUri commentId:(NSString *)commentId complete:(collectionCompleteHandler)aComplete error:(errorHandler)aError {
+    return [MixiClient searchPageCommentWithPageId:pageId contentUri:contentUri commentId:commentId startIndex:0 limitCount:0 complete:aComplete error:aError];
+}
+
++ (MixiClient *)searchPageCommentWithPageId:(NSString *)pageId contentUri:(NSURL *)contentUri commentId:(NSString *)commentId startIndex:(NSInteger)startIndex limitCount:(NSInteger)count complete:(collectionCompleteHandler)aComplete error:(errorHandler)aError {
     
     NSString *urlString = contentUri.absoluteString;
     NSString *escapedString = (NSString*)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(
@@ -133,14 +139,23 @@
                                                                                                    NULL,
                                                                                                    (CFStringRef)@"!*'();:@&=+$,/?%#[]",
                                                                                                    kCFStringEncodingUTF8));
-    
-    MixiRequest *request = [MixiRequest requestWithEndpoint:[NSString stringWithFormat:@"/pages/%@/comments/%@?contentUri=%@&startIndex=%d&count=%d"
+    MixiRequest *request;
+    if (startIndex && count) {
+        request = [MixiRequest requestWithEndpoint:[NSString stringWithFormat:@"/pages/%@/comments/%@?contentUri=%@&startIndex=%d&count=%d"
                                                              ,pageId
                                                              ,commentId ? commentId : @""
                                                              ,escapedString
                                                              ,startIndex
                                                              ,count
                                                              ]];
+    } else {
+        request = [MixiRequest requestWithEndpoint:[NSString stringWithFormat:@"/pages/%@/comments/%@?contentUri=%@"
+                                                    ,pageId
+                                                    ,commentId ? commentId : @""
+                                                    ,escapedString
+                                                    ]];
+
+    }
     
     MixiClient *client = [[MixiClient alloc] initWithRequest:request
                                                     complate:^(id data) {

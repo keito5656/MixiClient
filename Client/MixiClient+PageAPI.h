@@ -29,7 +29,7 @@ typedef void (^collectionCompleteHandler)(MixiCollection *collection);
 
 // MixiPageComment
 + (MixiClient*)findPageCommentWithPageId:(NSString*)pageId contentUri:(NSURL*)contentUri startIndex:(NSInteger)startIndex limitCount:(NSInteger)count complete:(collectionCompleteHandler)aComplete error:(errorHandler)aError;
-+ (MixiClient*)lookupPageCommentWithPageId:(NSString*)pageId contentUri:(NSURL*)contentUri commentId:(NSString*)commentId startIndex:(NSInteger)startIndex limitCount:(NSInteger)count complete:(collectionCompleteHandler)aComplete error:(errorHandler)aError;
++ (MixiClient*)lookupPageCommentWithPageId:(NSString*)pageId contentUri:(NSURL*)contentUri commentId:(NSString*)commentId complete:(collectionCompleteHandler)aComplete error:(errorHandler)aError;
 
 // MixiPageFavorit
 + (MixiClient*)lookupPageFavoritWithPageId:(NSString*)pageId contentUri:(NSURL*)contentUri complete:(pageFavoritCompleteHandler)aComplete error:(errorHandler)aError;
