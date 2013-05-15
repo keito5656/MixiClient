@@ -70,6 +70,13 @@
 
 -(void)mixi:(Mixi *)mixi didFinishLoading:(NSString *)data {
     NSLog(@"%@",data);
+    if (_allowBlank) {
+        _complete(@{});
+    }
+}
+
+- (BOOL)allowBlankResponse{
+    return _allowBlank;
 }
 
 @end

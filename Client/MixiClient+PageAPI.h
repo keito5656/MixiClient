@@ -34,5 +34,6 @@ typedef void (^collectionCompleteHandler)(MixiCollection *collection);
 // MixiPageFavorit
 + (MixiClient*)lookupPageFavoritWithPageId:(NSString*)pageId contentUri:(NSURL*)contentUri complete:(pageFavoritCompleteHandler)aComplete error:(errorHandler)aError;
 + (MixiClient*)createPageFavoritWithPageId:(NSString*)pageId contentUri:(NSURL*)contentUri complete:(createPageFavoritCompleteHandler)aComplete error:(errorHandler)aError;
++ (MixiClient*)deletePageFavoritWithPageId:(NSString*)pageId contentUri:(NSURL*)contentUri favoritId:(NSString*)favoritId complete:(createPageFavoritCompleteHandler)aComplete error:(errorHandler)aError;
 
 @end

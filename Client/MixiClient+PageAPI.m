@@ -172,7 +172,7 @@
     
     MixiClient *client = [[MixiClient alloc] initWithRequest:request
                                                     complate:^(id data) {
-                                                        MixiPageFavorit *favorit = [MixiPageFavorit entityWithData:data];
+                                                        MixiPageFavorit *favorit = [MixiPageFavorit makeContentFromDict:data];
                                                         aComplete(favorit);
                                                     } error:^(Mixi *mixi, NSError *error) {
                                                         aError(mixi,error);
@@ -203,6 +203,36 @@
                                                     }];
     return client;
 }
+
++ (MixiClient*)deletePageFavoritWithPageId:(NSString*)pageId contentUri:(NSURL*)contentUri favoritId:(NSString*)favoritId complete:(createPageFavoritCompleteHandler)aComplete error:(errorHandler)aError {
+    
+    NSString *urlString = contentUri.absoluteString;
+    NSString *escapedString = (NSString*)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(
+                                                                                                   kCFAllocatorDefault,
+                                                                                                   (CFStringRef)urlString,
+                                                                                                   NULL,
+                                                                                                   (CFStringRef)@"!*'();:@&=+$,/?%#[]",
+                                                                                                   kCFStringEncodingUTF8));
+    
+    MixiRequest *request = [MixiRequest deleteRequestWithEndpoint:[NSString stringWithFormat:@"/pages/%@/favorites/%@?contentUri=%@"
+                                                                   ,pageId
+                                                                   ,favoritId
+                                                                   ,escapedString
+                                                                   ]];
+    NSLog(@"%@", request.endpoint);
+    MixiClient *client = [[MixiClient alloc] init ];
+    client.allowBlank = YES;
+    [client sendRequest:request
+               complate:^(id data) {
+                   aComplete(@"success");
+               } error:^(Mixi *mixi, NSError *error) {
+                   aError(mixi,error);
+               }];
+    return client;
+}
+
+
+
 
 
 @end
