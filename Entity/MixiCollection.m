@@ -12,15 +12,11 @@
 + (MixiCollection*)collectionWithData:(id)data {
     MixiCollection *collection = [[MixiCollection alloc] init];
     
-    collection.startIndex = data[@"startIndex"];
-    collection.itemsPerPage = data[@"itemsPerPage"];
-    collection.totalResults = data[@"totalResults"];
+    collection.startIndex = [data[@"startIndex"] integerValue];
+    collection.itemsPerPage = [data[@"itemsPerPage"] integerValue];
+    collection.totalResults = [data[@"totalResults"] integerValue];
     
     return collection;
-}
-
-- (NSInteger)itemsPerPage{
-    return _itemsPerPage ? _itemsPerPage : [_contents count];
 }
 
 @end
